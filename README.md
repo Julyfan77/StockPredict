@@ -21,3 +21,11 @@ We will mainly use line plots of Actual vs. Predicted Prices and Residual Plot t
 
 # Test plan: 
 We will train on data collected over the past year, past three months, and past month, respectively, and test on data from November to determine the optimal time range for collecting prior data. We also plan to change the input when testing, like using the price of past 3 days or 1 day as the input.
+
+
+# Potential Extensions: 
+If we complete our primary objectives ahead of schedule, we may consider the following extensions:
+
+- Expanding our prediction horizon to weekly or monthly forecasts.
+- Incorporating additional data sources, such as sentiment analysis from financial news, to enhance prediction accuracy.
+
