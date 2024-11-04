@@ -18,7 +18,7 @@ RNNs (Recurrent Neural Network) are a class of neural networks designed for sequ
 
 
 # Visualization:
-We will mainly use line plots of Actual vs. Predicted Prices and Residual Plot to compare actual results to our model.
+In the visualization phase of our project, we will use line plots to compare actual vs. predicted prices, allowing us to observe how closely our model’s predictions align with real stock price trends over time. Alongside the line plots, a residual plot will illustrate the differences (residuals) between actual and predicted prices, enabling us to assess the model's consistency and identify any biases or areas for improvement. Additionally, we will display an accuracy rate below each chart, calculated using Mean Absolute Percentage Error (MAPE) and presented as a percentage, providing an immediate summary of the model’s overall reliability for each stock. These visual tools will collectively offer a comprehensive view of our model's performance, helping us evaluate its effectiveness, pinpoint discrepancies, and guide future enhancements.
 
 # Test plan: 
 We will train on data collected over the past year, past three months, and past month, respectively, and test on data from November to determine the optimal time range for collecting prior data. We also plan to change the input when testing, like using the price of past 3 days or 1 day as the input.
