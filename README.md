@@ -10,23 +10,22 @@ The data processing pipeline begins with downloading historical stock data for d
 
 After normalization, we structure the data for time series analysis. The create_sequences function generates sequences of a specified length (e.g., 60 days) from the closing prices to form input sequences suitable for time series models like LSTMs. Each sequence comprises 60 consecutive days of closing prices, and the target label is the price on the following day. This process creates two arrays: sequences and labels, where each sequence aligns with its corresponding next-day target value. Finally, the getdata function orchestrates the entire process, reading the CSV data, setting 'Date' as the index, and parsing it as a date. This function calls minmaxProcess for normalization and uses create_sequences to generate the input (X) and output (y) arrays. The X array is reshaped to meet the input format expected by LSTM models, with dimensions (samples, timesteps, features), and y represents the labels for each sequence. The final output includes X, y, and the scaler object, which retains the scaling parameters, facilitating the inverse transformation of predictions back to the original scale.
 
-# Trainning Model:
-We plan to use different deep learning models and some basic algorithms to predict the stock prices, including Dual Moving Average Crossover Strategy，LSTM and RNN.
-Dual Moving Average Crossover Strategy is a simple yet popular strategy in technical analysis, which involves using two moving averages with different time periods (e.g., 50-day and 200-day moving averages). A buy signal is generated when the shorter moving average crosses above the longer one, indicating an uptrend. 
-LSTM (Long Short-Term Memory) is a type of recurrent neural network (RNN) specifically designed to capture long-term dependencies in sequential data. It is widely used in time series forecasting, such as predicting stock prices, because it can learn patterns over time and retain relevant information over long sequences.
-RNNs (Recurrent Neural Network) are a class of neural networks designed for sequential data, where the output from previous steps is fed as input to the current step. Hence, they are effective for tasks like time series analysis.
+# Model Training and Result Analysis:
+We have applied LSTM to several stocks including Apple, Amazon, Nvidia and Visa. We trained the model with the first 80% of the data and tested it on the last 20% for each stock.
+Upon training, we gradually increased the epoch count to observe how the model fit improves with longer training. To avoid excessive training and potential overfitting, we applied early stopping with a patience setting from tensorflow framework.
+We also used MAPE(Mean Square Percentage Error) on both train set and test set to measure the overall accuracy of the prediction. For Apple, Amazon and visa, we have all achieved a test MAPE below 1% with epoch value in range 100-300, which indicates a decent result of prediction.
+Also note that for these 3 stocks, the loss and MAPE value of the test set are lower than those of the train set. This is probably because that the test data has less fluctuation than the train data, thus is easier to predict.
+As for Nvidia, which shows a strong rising trend in the test period compared to the other stocks, it gives a test MAPE of above 2.5% and a higher test loss than the train loss. This should be the expected result when the test data is harder to generalize compared to the other three.
 
 
 # Visualization:
 In the visualization phase of our project, we will use line plots to compare actual vs. predicted prices, allowing us to observe how closely our model’s predictions align with real stock price trends over time. Alongside the line plots, a residual plot will illustrate the differences (residuals) between actual and predicted prices, enabling us to assess the model's consistency and identify any biases or areas for improvement. Additionally, we will display an accuracy rate below each chart, calculated using Mean Absolute Percentage Error (MAPE) and presented as a percentage, providing an immediate summary of the model’s overall reliability for each stock. These visual tools will collectively offer a comprehensive view of our model's performance, helping us evaluate its effectiveness, pinpoint discrepancies, and guide future enhancements.
 
-# Test plan: 
-We will train on data collected over the past year, past three months, and past month, respectively, and test on data from November to determine the optimal time range for collecting prior data. We also plan to change the input when testing, like using the price of past 3 days or 1 day as the input.
-
-
 # Potential Extensions: 
-If we complete our primary objectives ahead of schedule, we may consider the following extensions:
+Since our result showed a potential under-performance with more complex datasets, we considered several plans to improve its performance.
 
-- Expanding our prediction horizon to weekly or monthly forecasts.
+- Extracting data from a shorter time period with a higher frequency in order to avoid the information decay over time and focus more on short term trend.
+- Perform cross-validation with a rolling window that shifts forward across the dataset to see if the performance is consistent across different time periods.
+- Explore more datasets with different patterns to generalize the training process.
 - Incorporating additional data sources, such as sentiment analysis from financial news, to enhance prediction accuracy.
 
