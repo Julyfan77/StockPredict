@@ -2,7 +2,8 @@
 
 # Member: Juling Fan, Ying-Yun Wang, Shangwei Liu, Ruyue Xiao, Junting Lyu
 
-# Midterm Presentation video: https://youtu.be/WNl6Qo-JiLw
+# Midterm Presentation video: 
+https://youtu.be/WNl6Qo-JiLw
 
 # Goal: 
 Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. This overarching goal encompasses several specific, measurable, achievable, relevant, and time-bound (SMART) objectives that will guide our project's development and evaluation. In terms of data collection and preprocessing, we aim to gather comprehensive historical stock price data from the past year using Google Finance and Nasdaq. We will develop and implement data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency.
