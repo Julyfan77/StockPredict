@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Download historical price data from Yahoo Finance
-ticker = "V"  # Apple stock symbol
+ticker = "V"  # Visa stock symbol
 start_date = "2020-01-01"
 end_date = "2024-01-01"
 data = yf.download(ticker, start=start_date, end=end_date)
