@@ -40,6 +40,35 @@ document.addEventListener("DOMContentLoaded", function () {
                         fill: false
                     }
                 ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x' // Pan horizontally
+                        },
+                        zoom: {
+                            wheel: { enabled: true }, // Zoom with mouse wheel
+                            pinch: { enabled: true }, // Zoom with pinch on touch devices
+                            mode: 'x' // Zoom horizontally
+                        }
+                    },
+                    legend: { labels: { color: 'white' } }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Date' },
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Stock Price' },
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                    }
+                }
             }
         });
 
@@ -95,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Toggle Residuals chart visibility
     document.getElementById("showResiduals").addEventListener("click", () => {
         if (!residualVisible) {
-            // Show residual chart
             if (residualData.dates.length > 0) {
                 renderResidualChart(residualData.dates, residualData.values);
                 document.getElementById("showResiduals").textContent = "Hide Residuals";
@@ -104,10 +132,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("No residual data available yet. Please reload the stock data.");
             }
         } else {
-            // Hide residual chart
             residualChartCanvas.style.display = 'none';
             document.getElementById("showResiduals").textContent = "Show Residuals";
             residualVisible = false;
+        }
+    });
+
+    // Reset Zoom Button
+    document.getElementById("resetZoom").addEventListener("click", () => {
+        if (stockChart) {
+            stockChart.resetZoom();
         }
     });
 
