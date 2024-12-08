@@ -11,7 +11,6 @@
     <div class="container">
         <h1>Stock Prediction Viewer</h1>
 
-        <!-- Dropdown for Stock Selection -->
         <label for="stockSelect">Choose Stock:</label>
         <select id="stockSelect">
             <option value="amazon">Amazon</option>
@@ -19,21 +18,11 @@
             <option value="visa">Visa</option>
         </select>
 
-        <!-- Checkboxes for Line Visibility -->
-        <div>
-            <input type="checkbox" id="togglePredicted" checked>
-            <label for="togglePredicted">Show Predicted Data</label>
-
-            <input type="checkbox" id="toggleActual" checked>
-            <label for="toggleActual">Show Actual Data</label>
-        </div>
-
         <canvas id="stockChart" width="800" height="400"></canvas>
+        <div id="accuracyRate" style="font-size: 1.2em; margin-top: 10px;">Accuracy Rate: Loading...</div>
 
-        <!-- Display accuracy rate below the chart -->
-        <div id="accuracyRate" style="color: white; font-size: 1.2em; margin-top: 10px;">
-            Accuracy Rate: Loading...
-        </div>
+        <button id="showResiduals" style="margin-top: 10px;">Show Residuals</button>
+        <canvas id="residualChart" width="800" height="400" style="display: none; margin-top: 10px;"></canvas>
     </div>
 
     <script src="/static/script.js"></script>

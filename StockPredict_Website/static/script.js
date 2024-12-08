@@ -1,22 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById("stockChart").getContext("2d");
+    const residualCtx = document.getElementById("residualChart").getContext("2d");
     const accuracyDisplay = document.getElementById("accuracyRate");
-    let stockChart;
+    const residualChartCanvas = document.getElementById("residualChart");
+    let stockChart, residualChart;
 
-    // Fetch data for selected stock
+    let residualData = { dates: [], values: [] }; // Placeholder to store residuals
+    let residualVisible = false; // Track residual visibility state
+
     const fetchData = async (stock) => {
         const response = await fetch(`/api/data?stock=${stock}`);
-        const data = await response.json();
-        return data;
+        return await response.json();
     };
 
-    // Render chart with actual and predicted data
     const renderChart = (actualData, predictedData, accuracy) => {
         const dates = actualData.map(item => item.Date);
         const actualPrices = actualData.map(item => item.Close);
         const predictedPrices = predictedData.map(item => item.Close);
 
-        if (stockChart) stockChart.destroy(); // Clear previous chart
+        if (stockChart) stockChart.destroy();
 
         stockChart = new Chart(ctx, {
             type: 'line',
@@ -28,63 +30,89 @@ document.addEventListener("DOMContentLoaded", function () {
                         data: actualPrices,
                         borderColor: 'rgba(192, 75, 75, 1)',
                         borderWidth: 2,
-                        fill: false,
-                        hidden: !document.getElementById("toggleActual").checked
+                        fill: false
                     },
                     {
                         label: 'Predicted Prices',
                         data: predictedPrices,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 2,
-                        fill: false,
-                        hidden: !document.getElementById("togglePredicted").checked
+                        fill: false
                     }
                 ]
+            }
+        });
+
+        accuracyDisplay.textContent = `Accuracy Rate: ${accuracy}%`;
+    };
+
+    const renderResidualChart = (dates, residuals) => {
+        if (residualChart) residualChart.destroy();
+
+        residualChart = new Chart(residualCtx, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Residuals',
+                    data: residuals,
+                    backgroundColor: 'rgba(255, 165, 0, 0.8)'
+                }]
             },
             options: {
                 responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
                 scales: {
-                    x: { 
-                        title: { display: true, text: 'Date' },
-                        ticks: { color: 'white' },
-                        grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                    x: {
+                        title: { display: true, text: 'Date' }
                     },
                     y: {
-                        title: { display: true, text: 'Stock Price' },
-                        ticks: { color: 'white' },
-                        grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                        title: { display: true, text: 'Residual Value' }
                     }
-                },
-                plugins: {
-                    legend: { labels: { color: 'white' } }
                 }
             }
         });
 
-        // Display accuracy rate
-        accuracyDisplay.textContent = `Accuracy Rate: ${accuracy}%`;
+        residualChartCanvas.style.display = 'block'; // Show residual chart
     };
 
-    // Load chart for selected stock
     const loadChart = async () => {
         const stock = document.getElementById("stockSelect").value;
-        const { actual, predicted, accuracy } = await fetchData(stock);
+        const { actual, predicted, residuals, accuracy } = await fetchData(stock);
+
+        // Store residual data globally
+        residualData.dates = residuals.dates;
+        residualData.values = residuals.values;
+
         renderChart(actual, predicted, accuracy);
+        residualChartCanvas.style.display = 'none'; // Hide residual chart initially
+        residualVisible = false; // Reset visibility state
+        document.getElementById("showResiduals").textContent = "Show Residuals";
     };
 
-    // Event listeners for stock selection and checkbox toggling
+    // Toggle Residuals chart visibility
+    document.getElementById("showResiduals").addEventListener("click", () => {
+        if (!residualVisible) {
+            // Show residual chart
+            if (residualData.dates.length > 0) {
+                renderResidualChart(residualData.dates, residualData.values);
+                document.getElementById("showResiduals").textContent = "Hide Residuals";
+                residualVisible = true;
+            } else {
+                alert("No residual data available yet. Please reload the stock data.");
+            }
+        } else {
+            // Hide residual chart
+            residualChartCanvas.style.display = 'none';
+            document.getElementById("showResiduals").textContent = "Show Residuals";
+            residualVisible = false;
+        }
+    });
+
+    // Event listener for stock selection
     document.getElementById("stockSelect").addEventListener("change", loadChart);
 
-    document.getElementById("togglePredicted").addEventListener("change", () => {
-        stockChart.data.datasets[1].hidden = !document.getElementById("togglePredicted").checked;
-        stockChart.update();
-    });
-
-    document.getElementById("toggleActual").addEventListener("change", () => {
-        stockChart.data.datasets[0].hidden = !document.getElementById("toggleActual").checked;
-        stockChart.update();
-    });
-
-    // Initial load for default stock
-    loadChart();
+    loadChart(); // Initial load
 });
