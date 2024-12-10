@@ -42,8 +42,15 @@ Once the server starts, access the application by visiting:
 http://127.0.0.1:5000
 ```
 
-# Goal: 
-Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. This overarching goal encompasses several specific, measurable, achievable, relevant, and time-bound (SMART) objectives that will guide our project's development and evaluation. In terms of data collection and preprocessing, we aim to gather comprehensive historical stock price data from the past year using Google Finance and Nasdaq. We will develop and implement data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency.
+# Goal 
+Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. To achieve this, we defined specific, measurable, achievable, relevant, and time-bound (SMART) objectives. We gathered historical stock price data from Yahoo Finance, focusing on the **'Date,' 'Close,' and 'Open'** columns. These columns were selected as they provide essential time-stamped stock price information:  
+- **'Date'**: Ensures the data is time-sequenced for proper time series analysis.  
+- **'Close'**: Represents the final price of the stock at the end of the trading day, which is a critical value for stock performance.  
+- **'Open'**: Indicates the stock price at the start of the trading day, which helps identify trends and gaps.  
+
+We implemented data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency, preparing the data for accurate time series predictions.
+
+
 
 # Data Preprocessing: 
 The data processing pipeline begins with downloading historical stock data for different companies from Yahoo Finance, covering the period from January 1, 2020, to January 1, 2024. Using the yfinance library, we retrieve daily price data and select only the 'Date,' 'Close,' and 'Open' columns, which are saved into different CSV files for easy access and storage. Next, to prepare the data for machine learning, we apply Min-Max scaling using the minmaxProcess function. This function normalizes the 'Close' and 'Open' prices independently, scaling each to a range of 0 to 1, ensuring consistency and reducing bias in the model. The scaling process uses MinMaxScaler, which transforms the data and stores the scaling parameters for potential inverse scaling if we need to revert predictions back to the original price range.
@@ -94,6 +101,9 @@ We applied **LSTM (Long Short-Term Memory)** models to predict the next day's cl
 | **Visa**    | 0.9%              | **0.83%**        | **99.17%**            | Best accuracy; stable and consistent trends.   |  
 
 
+
+
+
 # Visualization
 
 In the visualization phase of our project, we provide an interactive platform to analyze the model's performance comprehensively.  
@@ -114,7 +124,7 @@ In the visualization phase of our project, we provide an interactive platform to
 
 ---
 
-You can directly access the website at: [https://stock-predict-website.vercel.app/](https://finalstockpredictweb.vercel.app/). Alternatively, you can run the project locally by cloning the package from GitHub. To run it locally, use the following commands:
+You can directly access the website at: [https://stock-predict-website.vercel.app/](https://stock-predict-website.vercel.app/). Alternatively, you can run the project locally by cloning the package from GitHub. To run it locally, use the following commands:
 
 ```bash
  - cd ./StockPredict_Website
@@ -183,12 +193,9 @@ Contributions to this project are welcome!
 
 # Final Notes
 
-The StockPredict project reflects our collaborative effort to implement the complete data science lifecycle, from data collection and preprocessing to model training, evaluation, and visualization. By leveraging LSTM models, we achieved high accuracy in predicting next-day stock prices for Amazon, Nvidia, and Visa.  
+The StockPredict project represents our collaborative effort to implement the complete data science lifecycle, from data collection and preprocessing to model training, evaluation, and visualization. Our goal of developing an accurate model for predicting next-day stock prices has been successfully achieved.  
 
-Our interactive visualization platform provides clear insights into the model's performance with features like line plots, residual plots, and zoom functionalities, ensuring transparency and usability for users.  
+By leveraging **LSTM models**, we achieved high accuracy in predicting stock prices for **Amazon, Nvidia, and Visa**, with detailed observations and performance metrics confirming the reliability of our predictions. Our interactive visualization platform provides clear insights into the model's performance, featuring line plots, residual plots, and zoom functionalities, ensuring transparency and usability for users.  
 
-This project reflects a collaborative effort to apply advanced modeling techniques to real-world financial data, and the results are reproducible with minimal setup. Thank you for exploring StockPredict!   
-
-
-
+This project demonstrates our ability to apply advanced modeling techniques to real-world financial data and deliver meaningful, reproducible results. Thank you for exploring StockPredict!  
 
