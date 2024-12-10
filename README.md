@@ -1,9 +1,6 @@
-# StockPredict Midterm Report
+# StockPredict Final Report
 
 # Member: Juling Fan, Ying-Yun Wang, Shangwei Liu, Ruyue Xiao, Junting Lyu
-
-# Midterm Presentation video: 
-https://youtu.be/WNl6Qo-JiLw
 
 # Goal: 
 Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. This overarching goal encompasses several specific, measurable, achievable, relevant, and time-bound (SMART) objectives that will guide our project's development and evaluation. In terms of data collection and preprocessing, we aim to gather comprehensive historical stock price data from the past year using Google Finance and Nasdaq. We will develop and implement data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency.
@@ -13,32 +10,127 @@ The data processing pipeline begins with downloading historical stock data for d
 
 After normalization, we structure the data for time series analysis. The create_sequences function generates sequences of a specified length (e.g., 60 days) from the closing prices to form input sequences suitable for time series models like LSTMs. Each sequence comprises 60 consecutive days of closing prices, and the target label is the price on the following day. This process creates two arrays: sequences and labels, where each sequence aligns with its corresponding next-day target value. Finally, the getdata function orchestrates the entire process, reading the CSV data, setting 'Date' as the index, and parsing it as a date. This function calls minmaxProcess for normalization and uses create_sequences to generate the input (X) and output (y) arrays. The X array is reshaped to meet the input format expected by LSTM models, with dimensions (samples, timesteps, features), and y represents the labels for each sequence. The final output includes X, y, and the scaler object, which retains the scaling parameters, facilitating the inverse transformation of predictions back to the original scale.
 
-# Model Training and Result Analysis:
-We have applied LSTM to several stocks including Apple, Amazon, Nvidia and Visa. We trained the model with the first 80% of the data and tested it on the last 20% for each stock.
-Upon training, we gradually increased the epoch count to observe how the model fit improves with longer training. To avoid excessive training and potential overfitting, we applied early stopping with a patience setting from tensorflow framework.
-We also used MAPE(Mean Square Percentage Error) on both train set and test set to measure the overall accuracy of the prediction. For Apple, Amazon and visa, we have all achieved a test MAPE below 1% with epoch value in range 100-300, which indicates a decent result of prediction.
-Also note that for these 3 stocks, the loss and MAPE value of the test set are lower than those of the train set. This is probably because that the test data has less fluctuation than the train data, thus is easier to predict.
-As for Nvidia, which shows a strong rising trend in the test period compared to the other stocks, it gives a test MAPE of above 2.5% and a higher test loss than the train loss. This should be the expected result when the test data is harder to generalize compared to the other three.
+
+# Model Training and Result Analysis
+
+We applied **LSTM (Long Short-Term Memory)** models to predict the next day's closing stock price for several companies, including **Amazon, Nvidia**, and **Visa**. The dataset was split into two parts:  
+
+- **80% for training**  
+- **20% for testing**  
+
+---
+
+### **Training Process**  
+
+#### **Epoch Adjustment**  
+- We gradually increased the number of training epochs to observe the model's performance and convergence.  
+- Early stopping was applied with a **patience setting** using the TensorFlow framework to prevent overfitting.  
+
+#### **Evaluation Metric**  
+- We used **MAPE (Mean Absolute Percentage Error)** to evaluate the accuracy of the predictions on both training and test sets.  
+
+---
+
+### **Observations**  
+
+- **Amazon**:  
+  - The model achieved high accuracy with a **test MAPE of 1.52%** and an **accuracy rate of 98.48%**, indicating that the predictions align closely with the actual stock prices.  
+  - The lower fluctuation in test data likely contributed to this strong performance.  
+
+- **Visa**:  
+  - The model performed exceptionally well with a **test MAPE of 0.83%** and an **accuracy rate of 99.17%**, the highest among all stocks.  
+  - Visa's stable and consistent data trends made it easier for the model to generalize effectively.  
+
+- **Nvidia**:  
+  - The model achieved a **test MAPE of 3.07%** and an **accuracy rate of 96.93%**, slightly lower than the other stocks due to Nvidia's strong upward trend during the test period.  
+  - This trend posed a challenge for the model, as such dynamic patterns are harder to generalize accurately.  
+
+---
+
+### **Results**  
+
+| **Stock**   | **Train MAPE (%)** | **Test MAPE (%)** | **Accuracy Rate (%)** | **Observations**                               |  
+|-------------|-------------------|------------------|-----------------------|------------------------------------------------|  
+| **Amazon**  | 1.6%              | **1.52%**        | **98.48%**            | High accuracy; predictions align closely.      |  
+| **Nvidia**  | 2.9%              | **3.07%**        | **96.93%**            | Slightly higher error due to upward trends.    |  
+| **Visa**    | 0.9%              | **0.83%**        | **99.17%**            | Best accuracy; stable and consistent trends.   |  
+
 
 
 # Visualization
 
-In the visualization phase of our project, we will use line plots to compare actual vs. predicted prices, allowing us to observe how closely our model’s predictions align with real stock price trends over time. Alongside the line plots, a residual plot will illustrate the differences (residuals) between actual and predicted prices, enabling us to assess the model's consistency and identify any biases or areas for improvement. Additionally, we will display an accuracy rate below each chart, calculated using Mean Absolute Percentage Error (MAPE) and presented as a percentage, providing an immediate summary of the model’s overall reliability for each stock. These visual tools will collectively offer a comprehensive view of our model's performance, helping us evaluate its effectiveness, pinpoint discrepancies, and guide future enhancements.
+In the visualization phase of our project, we provide an interactive platform to analyze the model's performance comprehensively.  
+
+### **Features**  
+
+1. **Line Plots**:  
+   - Line plots compare actual vs predicted stock prices, allowing users to observe how closely the model’s predictions align with real stock price trends over time.  
+
+2. **Residual Plots**:  
+   - Residual plots highlight the differences (residuals) between actual and predicted prices. These plots enable us to assess the model's consistency, identify biases, and pinpoint areas for improvement.  
+
+3. **Accuracy Display**:  
+   - The Mean Absolute Percentage Error (MAPE) is calculated and displayed as an accuracy rate below each chart, providing a quick and clear summary of the model’s reliability for each stock.  
+
+4. **Zoom and Pan**:  
+   - The platform supports zooming and panning functionalities, allowing users to drill down into daily price details and reset the graph view when needed.  
+
+---
 
 You can directly access the website at: [https://stock-predict-website.vercel.app/](https://stock-predict-website.vercel.app/). Alternatively, you can run the project locally by cloning the package from GitHub. To run it locally, use the following commands:
 
 ```bash
  - cd ./StockPredict_Website
- - python app.py
+ - make install
+ - make run
+
 ```
 then the website should be available locally at http://127.0.0.1:5000.
 
+These visual tools collectively offer a clear and detailed view of our model's performance, helping us evaluate its effectiveness, identify discrepancies, and guide further improvements. The inclusion of residual plots, zooming capabilities, and accuracy displays ensures a comprehensive and interactive user experience.
 
-# Potential Extensions: 
-Since our result showed a potential under-performance with more complex datasets, we considered several plans to improve its performance.
 
-- Extracting data from a shorter time period with a higher frequency in order to avoid the information decay over time and focus more on short term trend.
-- Perform cross-validation with a rolling window that shifts forward across the dataset to see if the performance is consistent across different time periods.
-- Explore more datasets with different patterns to generalize the training process.
-- Incorporating additional data sources, such as sentiment analysis from financial news, to enhance prediction accuracy.
+
+
+# Makefile Explanation
+
+The repository is organized into two main folders, each containing a Makefile to handle tasks specific to that part of the project to ensure tasks remain independent and easy to execute. 
+
+
+### **1. Day_to_day: Prediction Pipeline**  
+The **`Day_to_day`** folder contains the code for predicting next-day stock prices using LSTM models. This includes:  
+- **Data preprocessing**  
+- **Model training**  
+- **Prediction generation**  
+
+**Usage**:  
+To execute the pipeline, navigate to the `Day_to_day` folder and run:  
+```bash
+cd Day_to_day
+make install    # Install dependencies
+make run        # Run the prediction pipeline
+make test       # Run tests
+```
+
+---
+
+### **2. StockPredict_Website: Visualization Web Application**  
+The **`StockPredict_Website`** folder contains the **Flask-based web application** for visualizing prediction results. It displays:  
+- **Line plots** for actual vs predicted stock prices  
+- **Residual plots** to highlight prediction errors  
+- **Accuracy rates** (MAPE) for each stock  
+
+**Usage**:  
+To start the web application, navigate to the `StockPredict_Website` folder and run:  
+```bash
+cd StockPredict_Website
+make install    # Install dependencies
+make run        # Start the Flask server
+make test       # Run tests
+```
+
+Once the server starts, access the application by visiting:  
+```
+http://127.0.0.1:5000
+```
 
