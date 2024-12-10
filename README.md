@@ -19,6 +19,7 @@ To execute the pipeline, navigate to the `Day_to_day` folder and run:
 cd Day_to_day
 make install    # Install dependencies
 make run        # Run the prediction pipeline
+make test       # Run tests
 ```
 
 ---
@@ -35,6 +36,7 @@ To start the web application, navigate to the `StockPredict_Website` folder and 
 cd StockPredict_Website
 make install    # Install dependencies
 make run        # Start the Flask server
+make test       # Run tests
 ```
 
 Once the server starts, access the application by visiting:  
@@ -42,12 +44,8 @@ Once the server starts, access the application by visiting:
 http://127.0.0.1:5000
 ```
 
----
-
 # Goal: 
 Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. This overarching goal encompasses several specific, measurable, achievable, relevant, and time-bound (SMART) objectives that will guide our project's development and evaluation. In terms of data collection and preprocessing, we aim to gather comprehensive historical stock price data from the past year using Google Finance and Nasdaq. We will develop and implement data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency.
-
-
 
 # Data Preprocessing: 
 The data processing pipeline begins with downloading historical stock data for different companies from Yahoo Finance, covering the period from January 1, 2020, to January 1, 2024. Using the yfinance library, we retrieve daily price data and select only the 'Date,' 'Close,' and 'Open' columns, which are saved into different CSV files for easy access and storage. Next, to prepare the data for machine learning, we apply Min-Max scaling using the minmaxProcess function. This function normalizes the 'Close' and 'Open' prices independently, scaling each to a range of 0 to 1, ensuring consistency and reducing bias in the model. The scaling process uses MinMaxScaler, which transforms the data and stores the scaling parameters for potential inverse scaling if we need to revert predictions back to the original price range.
@@ -62,7 +60,6 @@ We applied **LSTM (Long Short-Term Memory)** models to predict the next day's cl
 - **80% for training**  
 - **20% for testing**  
 
----
 
 ### **Training Process**  
 
@@ -89,7 +86,6 @@ We applied **LSTM (Long Short-Term Memory)** models to predict the next day's cl
   - The model achieved a **test MAPE of 3.07%** and an **accuracy rate of 96.93%**, slightly lower than the other stocks due to Nvidia's strong upward trend during the test period.  
   - This trend posed a challenge for the model, as such dynamic patterns are harder to generalize accurately.  
 
----
 
 ### **Results**  
 
@@ -99,9 +95,13 @@ We applied **LSTM (Long Short-Term Memory)** models to predict the next day's cl
 | **Nvidia**  | 2.9%              | **3.07%**        | **96.93%**            | Slightly higher error due to upward trends.    |  
 | **Visa**    | 0.9%              | **0.83%**        | **99.17%**            | Best accuracy; stable and consistent trends.   |  
 
-<img width="676" alt="Screenshot 2024-12-09 at 10 03 12 PM" src="https://github.com/user-attachments/assets/219c7eb5-b517-4c21-a17c-18b6a4e3b20a">
-<img width="675" alt="Screenshot 2024-12-09 at 10 02 57 PM" src="https://github.com/user-attachments/assets/2e2c5988-7080-403a-a820-ae1ddf2f2367">
-<img width="683" alt="Screenshot 2024-12-09 at 10 02 45 PM" src="https://github.com/user-attachments/assets/10198476-38f1-4d6d-8406-6003dabf7c46">
+
+
+<img width="832" alt="Screenshot 2024-12-09 at 9 58 28 PM" src="https://github.com/user-attachments/assets/190993fb-bc0a-425f-8c85-07e3d539d763">
+<img width="806" alt="Screenshot 2024-12-09 at 9 58 00 PM" src="https://github.com/user-attachments/assets/fccbe38c-4938-4dd1-9a43-fb9d4d63e88f">
+<img width="824" alt="Screenshot 2024-12-09 at 9 57 40 PM" src="https://github.com/user-attachments/assets/a1334b32-72b9-4359-8d6b-89a22bc55592">
+
+
 
 
 # Visualization
@@ -135,6 +135,69 @@ You can directly access the website at: [https://stock-predict-website.vercel.ap
 then the website should be available locally at http://127.0.0.1:5000.
 
 These visual tools collectively offer a clear and detailed view of our model's performance, helping us evaluate its effectiveness, identify discrepancies, and guide further improvements. The inclusion of residual plots, zooming capabilities, and accuracy displays ensures a comprehensive and interactive user experience.
+
+
+# Environment and Testing
+
+The project has been verified in the following environments:  
+
+- **Operating System**:  
+   - macOS Monterey  
+   - Windows 11
+   - Ubuntu 22.04 LTS (via GitHub Actions CI/CD pipeline)  
+- **Python Version**: Python 3.10  
+
+### **Dependencies**  
+
+**For Data Pipeline (Day_to_day):**  
+- `jupyter`, `nbconvert`, `pandas`, `numpy`, `matplotlib`, `scikit-learn`, `tensorflow`, `torch`, `seaborn`, `finance`  
+
+**For Visualization Website (StockPredict_Website):**  
+- `Flask`, `pandas`, `numpy`  
+
+To install dependencies:  
+```bash
+make install
+```
+
+### **Testing**  
+The GitHub Actions workflow validates:  
+1. The **Day_to_day prediction pipeline** runs successfully.  
+2. The **Flask application** responds at `http://127.0.0.1:5000`.  
+
+
+
+# How to Contribute
+
+Contributions to this project are welcome!  
+
+1. **Fork the Repository**: Click the "Fork" button.  
+2. **Clone Your Fork**:  
+   ```bash
+   git clone https://github.com/your-username/StockPredict.git
+   cd StockPredict
+   ```
+3. **Create a Branch**:  
+   ```bash
+   git checkout -b feature-your-feature-name
+   ```
+4. **Make Your Changes**: Follow the project structure and coding conventions.  
+5. **Commit and Push**:  
+   ```bash
+   git add .
+   git commit -m "Add description of changes"
+   git push origin feature-your-feature-name
+   ```
+6. **Submit a Pull Request**: Describe the changes and open a PR on GitHub.
+
+
+# Final Notes
+
+The StockPredict project reflects our collaborative effort to implement the complete data science lifecycle, from data collection and preprocessing to model training, evaluation, and visualization. By leveraging LSTM models, we achieved high accuracy in predicting next-day stock prices for Amazon, Nvidia, and Visa.  
+
+Our interactive visualization platform provides clear insights into the model's performance with features like line plots, residual plots, and zoom functionalities, ensuring transparency and usability for users.  
+
+This project reflects a collaborative effort to apply advanced modeling techniques to real-world financial data, and the results are reproducible with minimal setup. Thank you for exploring StockPredict!   
 
 
 
