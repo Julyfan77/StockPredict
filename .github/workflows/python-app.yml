@@ -1,0 +1,73 @@
+# Description: This GitHub Actions workflow automates the continuous integration and testing process
+# for the StockPredict project. It tests two main components:
+# 1. The prediction pipeline located in the 'Day_to_day' folder.
+# 2. The Flask-based web application for visualization in the 'StockPredict_Website' folder.
+#
+# Workflow Trigger:
+# - Runs on push and pull requests to the 'main' branch.
+
+name: Stock Prediction Pipeline and Web App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python 3.10 environment
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      # =========================
+      # Test Day_to_day Pipeline
+      # =========================
+      - name: Install dependencies for Day_to_day
+        run: |
+          cd Day_to_day
+          make install
+
+      - name: Run Prediction Pipeline
+        run: |
+          cd Day_to_day
+          make run
+
+      - name: Run Unit Tests for Day_to_day
+        run: |
+          pip install pytest  # Ensure pytest is installed
+          pytest tests/       # Tests in the separate 'tests' folder
+
+      # ============================
+      # Test Flask Web Application
+      # ============================
+      - name: Install dependencies for Flask App
+        run: |
+          cd StockPredict_Website
+          make install
+
+      - name: Start and Test Flask Application
+        run: |
+          cd StockPredict_Website
+          make run &
+          sleep 10  # Give the Flask app time to start
+
+          # Use curl to test the Flask app is running
+          curl --fail http://127.0.0.1:5000 || exit 1
+
+          # Kill the Flask process after testing
+          pkill -f app.py
+
+      - name: Clean up Cache Files
+        run: |
+          cd StockPredict_Website
+          make clean
