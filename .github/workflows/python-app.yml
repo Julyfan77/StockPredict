@@ -1,7 +1,7 @@
-# Description: This GitHub Actions workflow automates the continuous integration and testing process
-# for the StockPredict project. It tests two main components:
-# 1. The prediction pipeline located in the 'Day_to_day' folder.
-# 2. The Flask-based web application for visualization in the 'StockPredict_Website' folder.
+# Description: This GitHub Actions workflow automates the continuous integration process
+# for the StockPredict project. It verifies two main components:
+# 1. The prediction pipeline located in the 'Day_to_day' folder runs successfully.
+# 2. The Flask-based web application for visualization in the 'StockPredict_Website' folder starts and responds.
 #
 # Workflow Trigger:
 # - Runs on push and pull requests to the 'main' branch.
