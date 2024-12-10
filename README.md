@@ -124,7 +124,7 @@ In the visualization phase of our project, we provide an interactive platform to
 
 ---
 
-You can directly access the website at: [https://stock-predict-website.vercel.app/](https://finalstockpredictweb.vercel.app/). Alternatively, you can run the project locally by cloning the package from GitHub. To run it locally, use the following commands:
+You can directly access the website at: [https://finalstockpredictweb.vercel.app/](https://finalstockpredictweb.vercel.app/). Alternatively, you can run the project locally by cloning the package from GitHub. To run it locally, use the following commands:
 
 ```bash
  - cd ./StockPredict_Website
