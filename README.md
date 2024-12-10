@@ -94,14 +94,6 @@ We applied **LSTM (Long Short-Term Memory)** models to predict the next day's cl
 | **Visa**    | 0.9%              | **0.83%**        | **99.17%**            | Best accuracy; stable and consistent trends.   |  
 
 
-
-<img width="832" alt="Screenshot 2024-12-09 at 9 58 28 PM" src="https://github.com/user-attachments/assets/190993fb-bc0a-425f-8c85-07e3d539d763">
-<img width="806" alt="Screenshot 2024-12-09 at 9 58 00 PM" src="https://github.com/user-attachments/assets/fccbe38c-4938-4dd1-9a43-fb9d4d63e88f">
-<img width="824" alt="Screenshot 2024-12-09 at 9 57 40 PM" src="https://github.com/user-attachments/assets/a1334b32-72b9-4359-8d6b-89a22bc55592">
-
-
-
-
 # Visualization
 
 In the visualization phase of our project, we provide an interactive platform to analyze the model's performance comprehensively.  
