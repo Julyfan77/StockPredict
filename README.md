@@ -49,47 +49,6 @@ http://127.0.0.1:5000
 # Goal: 
 Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. This overarching goal encompasses several specific, measurable, achievable, relevant, and time-bound (SMART) objectives that will guide our project's development and evaluation. In terms of data collection and preprocessing, we aim to gather comprehensive historical stock price data from the past year using Google Finance and Nasdaq. We will develop and implement data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency.
 
-# Makefile Explanation
-
-The repository is organized into two main folders, each containing a Makefile to handle tasks specific to that part of the project to ensure tasks remain independent and easy to execute. 
-
-
-### **1. Day_to_day: Prediction Pipeline**  
-The **`Day_to_day`** folder contains the code for predicting next-day stock prices using LSTM models. This includes:  
-- **Data preprocessing**  
-- **Model training**  
-- **Prediction generation**  
-
-**Usage**:  
-To execute the pipeline, navigate to the `Day_to_day` folder and run:  
-```bash
-cd Day_to_day
-make install    # Install dependencies
-make run        # Run the prediction pipeline
-make test       # Run tests
-```
-
----
-
-### **2. StockPredict_Website: Visualization Web Application**  
-The **`StockPredict_Website`** folder contains the **Flask-based web application** for visualizing prediction results. It displays:  
-- **Line plots** for actual vs predicted stock prices  
-- **Residual plots** to highlight prediction errors  
-- **Accuracy rates** (MAPE) for each stock  
-
-**Usage**:  
-To start the web application, navigate to the `StockPredict_Website` folder and run:  
-```bash
-cd StockPredict_Website
-make install    # Install dependencies
-make run        # Start the Flask server
-make test       # Run tests
-```
-
-Once the server starts, access the application by visiting:  
-```
-http://127.0.0.1:5000
-```
 
 
 # Data Preprocessing: 
