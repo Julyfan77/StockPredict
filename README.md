@@ -19,7 +19,6 @@ To execute the pipeline, navigate to the `Day_to_day` folder and run:
 cd Day_to_day
 make install    # Install dependencies
 make run        # Run the prediction pipeline
-make test       # Run tests
 ```
 
 ---
@@ -36,7 +35,6 @@ To start the web application, navigate to the `StockPredict_Website` folder and 
 cd StockPredict_Website
 make install    # Install dependencies
 make run        # Start the Flask server
-make test       # Run tests
 ```
 
 Once the server starts, access the application by visiting:  
