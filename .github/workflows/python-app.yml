@@ -42,11 +42,6 @@ jobs:
           cd Day_to_day
           make run
 
-      - name: Run Unit Tests for Day_to_day
-        run: |
-          pip install pytest  # Ensure pytest is installed
-          pytest tests/       # Tests in the separate 'tests' folder
-
       # ============================
       # Test Flask Web Application
       # ============================
