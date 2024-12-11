@@ -43,12 +43,8 @@ http://127.0.0.1:5000
 ```
 
 # Goal 
-Our goal is to develop a robust and accurate model for predicting the next day's stock price using historical data. To achieve this, we defined specific, measurable, achievable, relevant, and time-bound (SMART) objectives. We gathered historical stock price data from Yahoo Finance, focusing on the **'Date,' 'Close,' and 'Open'** columns. These columns were selected as they provide essential time-stamped stock price information:  
-- **'Date'**: Ensures the data is time-sequenced for proper time series analysis.  
-- **'Close'**: Represents the final price of the stock at the end of the trading day, which is a critical value for stock performance.  
-- **'Open'**: Indicates the stock price at the start of the trading day, which helps identify trends and gaps.  
-
-We implemented data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency, preparing the data for accurate time series predictions.
+Our goal is to develop a robust and accurate model for predicting next-day stock prices using historical data. To achieve this, we defined specific, measurable, achievable, relevant, and time-bound (SMART) objectives. The historical stock price data, obtained from Yahoo Finance, serves as the foundation of the project.
+We focused on ensuring data consistency and accuracy by applying preprocessing techniques such as handling missing values, removing outliers, and scaling features appropriately. These steps enabled us to prepare the data effectively for time-series predictions.
 
 # Approach
 We decided to implement Long Short-Term Memory models (LSTM) for this project. LSTM are a type of recurrent neural network (RNN) designed to capture long-term dependencies in sequential data. LSTMs are particularly suited for time-series forecasting because they can learn and retain patterns over long sequences while handling non-linear relationships in the data. This makes them an ideal choice for predicting stock prices, which are influenced by complex, time-dependent patterns.
