@@ -50,7 +50,13 @@ Our goal is to develop a robust and accurate model for predicting the next day's
 
 We implemented data preprocessing techniques to handle missing values, remove outliers, and ensure data consistency, preparing the data for accurate time series predictions.
 
+# Approach
+We decided to implement Long Short-Term Memory models (LSTM) for this project. LSTM are a type of recurrent neural network (RNN) designed to capture long-term dependencies in sequential data. LSTMs are particularly suited for time-series forecasting because they can learn and retain patterns over long sequences while handling non-linear relationships in the data. This makes them an ideal choice for predicting stock prices, which are influenced by complex, time-dependent patterns.
 
+For our training dataset, we included opening and closing prices to ensure simplicity while capturing critical stock price movements. Closing prices provide essential information about the final trading sentiment for each day, reflecting how the market values the stock at the end of the trading day while opening prices give insight into the stock's initial sentiment at the beginning of the trading day, helping to identify trends or gaps.
+
+# Data description
+The dataset for this project was obtained from Yahoo Finanace with daily stock price information for three major companies: Amazon, Nvidia, and Visa. The data spans a period of four years, from January 1, 2020, to January 1, 2024.
 
 # Data Preprocessing: 
 The data processing pipeline begins with downloading historical stock data for different companies from Yahoo Finance, covering the period from January 1, 2020, to January 1, 2024. Using the yfinance library, we retrieve daily price data and select only the 'Date,' 'Close,' and 'Open' columns, which are saved into different CSV files for easy access and storage. Next, to prepare the data for machine learning, we apply Min-Max scaling using the minmaxProcess function. This function normalizes the 'Close' and 'Open' prices independently, scaling each to a range of 0 to 1, ensuring consistency and reducing bias in the model. The scaling process uses MinMaxScaler, which transforms the data and stores the scaling parameters for potential inverse scaling if we need to revert predictions back to the original price range.
